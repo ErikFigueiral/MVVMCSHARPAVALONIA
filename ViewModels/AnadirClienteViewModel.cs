@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DIAEFACLIENT.Models;
 using DIAEFACLIENT.Utils;
+using DIAEFACLIENT.Views;
 
 namespace DIAEFACLIENT.ViewModels;
 
@@ -84,7 +85,8 @@ public class AnadirClienteViewModel : ViewModelBase
             Nombre = TitularNombre
 
         });
-        Messenger.GetInstance.Send(new CloseWindowMessage());
+        VistaSingleton.CerrarInstancia<AnadirClienteWindow>();
+        //Messenger.GetInstance.Send(new CloseWindowMessage()); SingletonVista se cargo al messenger
     }
     
     private bool ComprobarAltaCliente()

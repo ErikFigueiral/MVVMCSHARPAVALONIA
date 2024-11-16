@@ -29,14 +29,15 @@ public partial class VisualizarClienteWindow : Window
             })
         };
         MyDataGrid.Columns.Add(actionsColumn);
-        var messenger = Messenger.GetInstance;
-        messenger.Register<CloseWindowMessage>(message => Close());
+        //var messenger = Messenger.GetInstance;
+       // messenger.Register<CloseWindowMessage>(message => Close());
     }
     protected override void OnClosed(EventArgs e)
     {
         var messenger = Messenger.GetInstance;
         Console.WriteLine("CerrandoView Visualizar");
-        messenger.Unregister<CloseWindowMessage>(message => Close());  // Desregistrarse
+        VistaSingleton.CerrarInstancia<VisualizarClienteWindow>();
+        //messenger.Unregister<CloseWindowMessage>(message => Close());  // Desregistrarse
         base.OnClosed(e);
     }
 }

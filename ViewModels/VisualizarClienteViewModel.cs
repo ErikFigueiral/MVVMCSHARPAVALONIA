@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using DIAEFACLIENT.Models;
 using DIAEFACLIENT.Utils;
+using DIAEFACLIENT.Views;
 
 namespace DIAEFACLIENT.ViewModels;
 
@@ -49,6 +50,7 @@ public class VisualizarClienteViewModel :  ViewModelBase
     private void CerrarVentana()
     {
         // Método para cerrar la ventana
-        Messenger.GetInstance.Send(new CloseWindowMessage());
+        VistaSingleton.CerrarInstancia<VisualizarClienteWindow>();
+        //Messenger.GetInstance.Send(new CloseWindowMessage());
     }
 }

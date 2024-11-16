@@ -49,13 +49,13 @@ public partial class MainWindowViewModel : ViewModelBase
     }
     private void AbrirVentanaAñadirCliente()
     {
-        var ventana = new AnadirClienteWindow();
+        var ventana = VistaSingleton.GetInstancia<AnadirClienteWindow>();
         ventana.Show(); // Abre la ventana de forma modal
     }
 
     private void AbrirVentanaVisualizarCliente()
     {
-        var ventana = new VisualizarClienteWindow();
+        var ventana = VistaSingleton.GetInstancia<VisualizarClienteWindow>();
         ventana.Show();
     }
 }
