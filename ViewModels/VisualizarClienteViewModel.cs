@@ -33,6 +33,11 @@ public class VisualizarClienteViewModel :  ViewModelBase
         {
             GestorClienteSingleton.GetInstancia().BorrarCliente(cliente);
             Clientes.Remove(cliente);
+            foreach (var c in Clientes)
+            {
+                Console.WriteLine("DESPUES ELIMINAR"+c);
+            }
+            OnPropertyChanged(nameof(Clientes));
         }
 
     }

@@ -27,7 +27,7 @@ public partial class AnadirClienteWindow : Window
     private void TextBox_LostFocus(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         var viewModel = (AnadirClienteViewModel)DataContext;
-        // Es un cast seguro,sino es vale NULL
+        // Es un cast sobreseguro, sino es vale NULL
         var textBox = sender as TextBox;
         if (textBox != null)
         {
