@@ -8,6 +8,31 @@
         x:DataType="vm:VisualizarClienteViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Visualizar Cliente">
+        <Window.Styles>
+                <!-- Incluir el estilo de DataGrid -->
+                <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        </Window.Styles>
 
+        <StackPanel>
+                <TextBlock Text="Clientes" FontSize="24" HorizontalAlignment="Center" Margin="20"/>
         
+                <DataGrid ItemsSource="{Binding Clientes, FallbackValue='No hay clientes disponibles'}" AutoGenerateColumns="False" Margin="10">
+                        <DataGrid.Columns>
+                                <DataGridTextColumn Header="DNI" Binding="{Binding Dni}" />
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
+                                <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" />
+                                <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" />
+                                <DataGridTemplateColumn Header="Acciones">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                        <!--<Button Content="Eliminar" Command="{Binding DataContext.EliminarClienteCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" />
+                                                -->
+                                                </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                </DataGrid>
+
+                <Button Content="Cerrar" Command="{Binding CerrarVentanaCommand}" HorizontalAlignment="Center" Margin="20" Width="100" />
+        </StackPanel>
 </Window>
