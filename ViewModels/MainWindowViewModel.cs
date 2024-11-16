@@ -38,6 +38,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private void VisualizarCliente()
     {
         Console.WriteLine("Visualizo cliente!");
+        AbrirVentanaVisualizarCliente();
     }
     //De esta manera  si hay clientes habilitamos el Command o no
     private bool PoderVisualizarCliente()
@@ -51,5 +52,11 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         var ventana = new AnadirClienteWindow();
         ventana.Show(); // Abre la ventana de forma modal
+    }
+
+    private void AbrirVentanaVisualizarCliente()
+    {
+        var ventana = new VisualizarClienteWindow();
+        ventana.Show();
     }
 }

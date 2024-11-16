@@ -27,3 +27,6 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/erikf/RiderProjects/DIAEFACLIENT/DIAEFACLIENT/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/erikf/RiderProjects/DIAEFACLIENT/DIAEFACLIENT/Views/VisualizarClienteWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

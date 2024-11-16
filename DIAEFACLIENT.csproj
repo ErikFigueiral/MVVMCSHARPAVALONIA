@@ -30,6 +30,10 @@
         <DependentUpon>AnadirClienteWindow.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Views\VisualizarClienteWindow.axaml.cs">
+        <DependentUpon>VisualizarClienteWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
