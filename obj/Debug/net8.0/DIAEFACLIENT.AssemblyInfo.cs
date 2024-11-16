@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DIAEFACLIENT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+443bba5e0fb59d1b8a42fb91e153dd928fc115d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c7e1e049e908afcfd145e81312c8984d6f80b97")]
 [assembly: System.Reflection.AssemblyProductAttribute("DIAEFACLIENT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DIAEFACLIENT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -9,6 +9,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="Visualizar Cliente">
         <Window.Styles>
+                <!-- SHOULD BE ON STYLE BUT I HAVE BUGSSS :) -->
                 <!-- Incluir el estilo de DataGrid -->
                 <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
                 <Style Selector="DataGrid">
@@ -49,7 +50,9 @@
                         <Setter Property="Cursor" Value="Hand"/>
                 </Style>
         </Window.Styles>
-
+        <Window.Resources>
+                <vm:VisualizarClienteViewModel x:Key="MainViewModel" />
+        </Window.Resources>
         <StackPanel>
                 <TextBlock Text="Clientes" FontSize="24" HorizontalAlignment="Center" Margin="20"/>
                 <!-- Nunca me debería mostrar el FallBack al tener el command que invoca esto con un método de restricción -->
@@ -62,8 +65,10 @@
                                 <DataGridTemplateColumn Header="Acciones">
                                         <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                        <!--<Button Content="Eliminar" Command="{Binding DataContext.EliminarClienteCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" />
-                                                -->
+                                                        <!-- Tuvimos que recurrir a AncestorType ya que tenemos una fila por desgracia y no el modelo -->
+                                                        <Button Content="Eliminar"
+                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=EliminarClienteCommand}"
+                                                                CommandParameter="{Binding}" />
                                                 </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

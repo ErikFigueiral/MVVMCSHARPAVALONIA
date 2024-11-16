@@ -27,9 +27,14 @@ public class VisualizarClienteViewModel :  ViewModelBase
 
     private void EliminarCliente(Cliente cliente)
     {
+        Console.WriteLine("Elimianmos cliente");
         // Eliminar el cliente de la lista
-        GestorClienteSingleton.GetInstancia().BorrarCliente(cliente);
-        Clientes.Remove(cliente);
+        if (cliente != null)
+        {
+            GestorClienteSingleton.GetInstancia().BorrarCliente(cliente);
+            Clientes.Remove(cliente);
+        }
+
     }
 
     private void CerrarVentana()
