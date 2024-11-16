@@ -68,11 +68,9 @@ public class AnadirClienteViewModel : ViewModelBase
     }
     // Comando para guardar el cliente
     public IRelayCommand AltaClienteCommand { get; }
-    public Messenger Messenger { get; init; }
     
-    public AnadirClienteViewModel(Messenger messenger)
+    public AnadirClienteViewModel()
     {
-        Messenger = messenger;
         AltaClienteCommand=new RelayCommand(AltaCliente,ComprobarAltaCliente);
     }
 
@@ -87,7 +85,7 @@ public class AnadirClienteViewModel : ViewModelBase
             Nombre = TitularNombre
 
         });
-        Messenger.Send(new CloseWindowMessage());
+        Messenger.GetInstance.Send(new CloseWindowMessage());
     }
     
     private bool ComprobarAltaCliente()

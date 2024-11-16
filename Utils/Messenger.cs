@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Avalonia.Data;
+using Avalonia.Vulkan;
 
 namespace DIAEFACLIENT.Utils;
 //Patron Messenger variante de Observer(ENVIÓ MENSAJE EXPLÍCITO más en arquitecturas MVMM)
 public class Messenger
 {
     private readonly Dictionary<Type, List<Action<object>>> _subscribers = new Dictionary<Type, List<Action<object>>>();
+    private static Messenger _instance = new Messenger();
+    public static Messenger GetInstance => _instance;
+
+    private Messenger()
+    {
+        
+    }
 
     // Método para enviar un mensaje
     public void Send<TMessage>(TMessage message)
@@ -38,7 +47,8 @@ public class Messenger
         var messageType = typeof(TMessage);
         if (_subscribers.ContainsKey(messageType))
         {
-            _subscribers[messageType].Remove(x => callback((TMessage)x));
+            // Encuentra el delegado que coincide y lo elimina
+            _subscribers[messageType].RemoveAll(x => x.Equals(callback));
         }
     }
 }

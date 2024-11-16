@@ -11,10 +11,18 @@ public partial class AnadirClienteWindow : Window
     {
         InitializeComponent();
         //No queremos acoplamiento directa ViewModel-View
-        var messenger = new Messenger();
-        DataContext = new AnadirClienteViewModel(messenger);
+        var messenger = Messenger.GetInstance;
+        DataContext = new AnadirClienteViewModel();
         
         messenger.Register<CloseWindowMessage>(message => Close());
+    }
+    //Tenemos suerte de que se llama a Onclosed
+    protected override void OnClosed(EventArgs e)
+    {
+        var messenger = Messenger.GetInstance;
+        Console.WriteLine("Me cierro");
+        messenger.Unregister<CloseWindowMessage>(message => Close());  // Desregistrarse
+        base.OnClosed(e);
     }
     private void TextBox_LostFocus(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
