@@ -14,32 +14,40 @@
         <StackPanel Background="#F0F0F0">
             
             <!-- Para DNI -->
-            <DockPanel Margin="10">
-                <Label Content="DNI:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox Name="TitularDNI" Text="{Binding TitularDNI, Mode=TwoWay}" Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
-            </DockPanel>
-            <TextBlock Foreground="Red" Text="{Binding DniError}" Margin="5"/>
+            <StackPanel>
+                <DockPanel Margin="10">
+                    <Label Content="DNI:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
+                    <TextBox Name="TitularDNI" Text="{Binding TitularDNI, Mode=TwoWay}" Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                </DockPanel>
+                <TextBlock Foreground="Red" Text="{Binding DniError}" Margin="5"/>
+            </StackPanel>
             
             <!-- Para Nombre -->
-            <DockPanel Margin="10">
-                <Label Content="Nombre:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox Name="TitularNombre" Text="{Binding TitularNombre, Mode=TwoWay}" Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
-            </DockPanel>
-            <TextBlock Foreground="Red" Text="{Binding NombreError}" Margin="5"/>
+            <StackPanel>
+                <DockPanel Margin="10">
+                    <Label Content="Nombre:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
+                    <TextBox Name="TitularNombre" Text="{Binding TitularNombre, Mode=TwoWay}" Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                </DockPanel>
+                <TextBlock Foreground="Red" Text="{Binding NombreError}" Margin="5"/>
+            </StackPanel>
 
             <!-- Para Dirección -->
-            <DockPanel Margin="10">
-                <Label Content="Dirección:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox Name="TitularDireccion" Text="{Binding TitularDireccion, Mode=TwoWay}" Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
-            </DockPanel>
-            <TextBlock Foreground="Red" Text="{Binding DireccionError}" Margin="5"/>
+            <StackPanel>
+                <DockPanel Margin="10">
+                    <Label Content="Dirección:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
+                    <TextBox Name="TitularDireccion" Text="{Binding TitularDireccion, Mode=TwoWay}" Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                </DockPanel>
+                <TextBlock Foreground="Red" Text="{Binding DireccionError}" Margin="5"/>
+            </StackPanel>
 
             <!-- Para Código -->
-            <DockPanel Margin="10">
-                <Label Content="Código:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox Name="TitularCodigo" Text="{Binding TitularCodigo, Mode=TwoWay}" Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
-            </DockPanel>
-            <TextBlock Foreground="Red" Text="{Binding CodigoError}" Margin="5"/>
+            <StackPanel>
+                <DockPanel Margin="10">
+                    <Label Content="Código:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
+                    <TextBox Name="TitularCodigo" Text="{Binding TitularCodigo, Mode=TwoWay}" Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                </DockPanel>
+                <TextBlock Foreground="Red" Text="{Binding CodigoError}" Margin="5"/>
+            </StackPanel>
 
             <!-- Botón Guardar -->
             <Button Content="Guardar Cliente" Command="{Binding AltaClienteCommand}" Margin="10" HorizontalAlignment="Center" Height="40" Background="#4CAF50" Foreground="White" BorderBrush="Black" BorderThickness="0" CornerRadius="5"/>

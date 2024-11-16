@@ -1,6 +1,7 @@
 ﻿using System;
 using CommunityToolkit.Mvvm.Input;
 using DIAEFACLIENT.Models;
+using DIAEFACLIENT.Utils;
 
 namespace DIAEFACLIENT.ViewModels;
 
@@ -12,6 +13,7 @@ public class AnadirClienteViewModel : ViewModelBase
     public string TitularDNI
     {
         get => _titularDNI;
+        //Observador-Observable (BIDIRECCIONAL)!!
         set => SetProperty(ref _titularDNI, value); // No validamos en el setter
     }
 
@@ -66,10 +68,11 @@ public class AnadirClienteViewModel : ViewModelBase
     }
     // Comando para guardar el cliente
     public IRelayCommand AltaClienteCommand { get; }
-   
+    public Messenger Messenger { get; init; }
     
-    public AnadirClienteViewModel()
+    public AnadirClienteViewModel(Messenger messenger)
     {
+        Messenger = messenger;
         AltaClienteCommand=new RelayCommand(AltaCliente,ComprobarAltaCliente);
     }
 
@@ -84,7 +87,7 @@ public class AnadirClienteViewModel : ViewModelBase
             Nombre = TitularNombre
 
         });
-        Console.WriteLine("hola");
+        Messenger.Send(new CloseWindowMessage());
     }
     
     private bool ComprobarAltaCliente()

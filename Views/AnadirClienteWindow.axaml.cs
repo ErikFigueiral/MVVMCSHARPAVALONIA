@@ -1,5 +1,6 @@
 using System;
 using Avalonia.Controls;
+using DIAEFACLIENT.Utils;
 using DIAEFACLIENT.ViewModels;
 
 namespace DIAEFACLIENT.Views;
@@ -9,12 +10,16 @@ public partial class AnadirClienteWindow : Window
     public AnadirClienteWindow()
     {
         InitializeComponent();
-        DataContext = new AnadirClienteViewModel();
+        //No queremos acoplamiento directa ViewModel-View
+        var messenger = new Messenger();
+        DataContext = new AnadirClienteViewModel(messenger);
+        
+        messenger.Register<CloseWindowMessage>(message => Close());
     }
     private void TextBox_LostFocus(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         var viewModel = (AnadirClienteViewModel)DataContext;
-        // Comprobamos qué campo ha perdido el foco
+        // Es un cast seguro,sino es vale NULL
         var textBox = sender as TextBox;
         if (textBox != null)
         {
