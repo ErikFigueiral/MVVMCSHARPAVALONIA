@@ -1,4 +1,6 @@
-﻿namespace DIAEFACLIENT.Models;
+﻿using System;
+
+namespace DIAEFACLIENT.Models;
 
 using System.Collections.Generic;
 
@@ -7,12 +9,34 @@ using System.Collections.ObjectModel;
 
 public class GestorClienteSingleton
 {
-    private static GestorClienteSingleton instancia = new GestorClienteSingleton();
-    private   List<Cliente> listaCliente=new List<Cliente>();
-    
-    private GestorClienteSingleton()
+    private static Action<List<Cliente>> saveAction = lista =>
     {
-        
+        ClienteXML.Save("Clientes.xml", lista);
+    };
+    private static GestorClienteSingleton instancia = new GestorClienteSingleton(ClienteXML.Load("Clientes.xml"),saveAction);
+    public ObservableCollection<Cliente> _listaCliente { get; private set; }
+    //Proxy Pattern
+    public ReadOnlyObservableCollection<Cliente> ListaCliente
+    {
+        get=>new ReadOnlyObservableCollection<Cliente>(_listaCliente);
+    }
+
+    private GestorClienteSingleton(List<Cliente> initialList, Action<List<Cliente>> onSaveCallback)
+    {
+        _listaCliente = new ObservableCollection<Cliente>(initialList);
+
+        _listaCliente.CollectionChanged += (sender, args) =>
+        {
+            try
+            {
+                onSaveCallback?.Invoke(new List<Cliente>(_listaCliente));
+            }
+            catch (Exception ex)
+            {
+                // Log o maneja el error de persistencia
+                Console.WriteLine($"Error al guardar los clientes: {ex.Message}");
+            }
+        };
     }
 
     public static GestorClienteSingleton  GetInstancia()
@@ -20,15 +44,14 @@ public class GestorClienteSingleton
         return instancia;
     }
     
-    public  ReadOnlyCollection<Cliente> ListaCliente => new ReadOnlyCollection<Cliente>(this.listaCliente);
 
     public void AnadirCliente(Cliente cliente)
     {
-        listaCliente.Add(cliente);
+        _listaCliente.Add(cliente);
     }
 
     public void BorrarCliente(Cliente cliente)
     {
-        listaCliente.Remove(cliente);
+        _listaCliente.Remove(cliente);
     }
 }

@@ -15,7 +15,7 @@ public class VisualizarClienteViewModel :  ViewModelBase
     public VisualizarClienteViewModel()
     {
         // Inicializamos la lista de clientes con la lista de clientes del GestorClienteSingleton
-        Clientes = new ObservableCollection<Cliente>(GestorClienteSingleton.GetInstancia().ListaCliente);
+        Clientes = GestorClienteSingleton.GetInstancia()._listaCliente;
         foreach (var c in Clientes)
         {
             Console.WriteLine(c);
@@ -31,7 +31,6 @@ public class VisualizarClienteViewModel :  ViewModelBase
         // Eliminar el cliente de la lista
         if (cliente != null)
         {
-            GestorClienteSingleton.GetInstancia().BorrarCliente(cliente);
             Clientes.Remove(cliente);
             foreach (var c in Clientes)
             {
@@ -40,7 +39,7 @@ public class VisualizarClienteViewModel :  ViewModelBase
             OnPropertyChanged(nameof(Clientes));
         }
 
-        if (GestorClienteSingleton.GetInstancia().ListaCliente.Count == 0)
+        if (GestorClienteSingleton.GetInstancia()._listaCliente.Count == 0)
         {
             CerrarVentana();
         }

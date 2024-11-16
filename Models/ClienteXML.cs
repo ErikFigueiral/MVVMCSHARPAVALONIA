@@ -3,14 +3,13 @@
 using System.Xml.Linq;
 using System;
 using System.Collections.Generic;
-public class ClienteXML
+public abstract class ClienteXML
 {
-    public required List<Cliente> ListaClientes { get; init; }
 
-    private XElement ToXml()
+    private static XElement ToXml(List<Cliente> listaClientes)
     {
         var toret = new XElement("Clientes");
-        foreach (var c in this.ListaClientes)
+        foreach (var c in listaClientes)
         {
             var v = new XElement("cliente");
             v.Add(new XElement("nombre", c.Nombre));
@@ -21,17 +20,24 @@ public class ClienteXML
         }
         return toret;
     }
-    public void Save(string nf)
+    public static void Save(string nf,List<Cliente> listaClientes)
     {
-        XElement raiz=ToXml();
+        XElement raiz=ToXml(listaClientes);
         raiz.Save(nf);
     }
-    public  List<Cliente> Load(string nf)
+    public static  List<Cliente> Load(string nf)
     {
-        return FromXML(XElement.Load(nf));
+        try
+        {
+            return FromXML(XElement.Load(nf));
+        }
+        catch (Exception e)
+        {
+            return new List<Cliente>();
+        }
     }
 
-    private List<Cliente> FromXML(XElement xet)
+    private static List<Cliente> FromXML(XElement xet)
     {
         var toret = new List<Cliente>();
         foreach (var e in xet.Elements())

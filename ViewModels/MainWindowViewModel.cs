@@ -46,7 +46,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Console.WriteLine("Compruebo de nuevo");
         var messenger = Messenger.GetInstance;
         messenger.Unregister<AddClient>(message => ((RelayCommand)VisualizarClienteCommand).NotifyCanExecuteChanged());
-        return GestorClienteSingleton.GetInstancia().ListaCliente.Count != 0;
+        return GestorClienteSingleton.GetInstancia()._listaCliente.Count != 0;
     }
     private void AbrirVentanaAñadirCliente()
     {
