@@ -1,4 +1,5 @@
 ﻿using System;
+using DIAEFACLIENT.Utils;
 
 namespace DIAEFACLIENT.Models;
 
@@ -20,22 +21,14 @@ public class GestorClienteSingleton
     {
         get=>new ReadOnlyObservableCollection<Cliente>(_listaCliente);
     }
-
+    public event Action ListaClienteCambiada;
     private GestorClienteSingleton(List<Cliente> initialList, Action<List<Cliente>> onSaveCallback)
     {
         _listaCliente = new ObservableCollection<Cliente>(initialList);
-
         _listaCliente.CollectionChanged += (sender, args) =>
         {
-            try
-            {
-                onSaveCallback?.Invoke(new List<Cliente>(_listaCliente));
-            }
-            catch (Exception ex)
-            {
-                // Log o maneja el error de persistencia
-                Console.WriteLine($"Error al guardar los clientes: {ex.Message}");
-            }
+            EventAggregator.Instance.Publish(new ListaClientesCambiadaMessage());
+            onSaveCallback?.Invoke(new List<Cliente>(_listaCliente));
         };
     }
 
@@ -54,4 +47,10 @@ public class GestorClienteSingleton
     {
         _listaCliente.Remove(cliente);
     }
+}
+
+//Mensajes
+public class ListaClientesCambiadaMessage
+{
+    // Puedes agregar más detalles si lo necesitas
 }

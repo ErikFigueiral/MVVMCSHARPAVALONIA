@@ -84,11 +84,6 @@ public class AnadirClienteViewModel : ViewModelBase
             Nombre = TitularNombre
 
         });
-        if (GestorClienteSingleton.GetInstancia()._listaCliente.Count == 1)
-        {
-            Console.WriteLine("Envio al main");
-            Messenger.GetInstance.Send(new AddClient());
-        }
         Messenger.GetInstance.Send(new CloseWindowMessage());
     }
     

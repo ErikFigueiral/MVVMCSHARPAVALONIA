@@ -27,12 +27,13 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         Console.WriteLine("Añadiendo cliente!");
         var messenger = Messenger.GetInstance;
-        if (!PoderVisualizarCliente())
-        {
-            messenger.Register<AddClient>(message =>
-                ((RelayCommand)VisualizarClienteCommand).NotifyCanExecuteChanged());
-        }
+        EventAggregator.Instance.Subscribe<ListaClientesCambiadaMessage>(OnListaClientesCambiada);
         AbrirVentanaAñadirCliente();
+    }
+
+    private void OnListaClientesCambiada(ListaClientesCambiadaMessage message)
+    {
+        ((RelayCommand)VisualizarClienteCommand).NotifyCanExecuteChanged();
     }
 
     private void VisualizarCliente()
@@ -44,8 +45,6 @@ public partial class MainWindowViewModel : ViewModelBase
     private bool PoderVisualizarCliente()
     {
         Console.WriteLine("Compruebo de nuevo");
-        var messenger = Messenger.GetInstance;
-        messenger.Unregister<AddClient>(message => ((RelayCommand)VisualizarClienteCommand).NotifyCanExecuteChanged());
         return GestorClienteSingleton.GetInstancia()._listaCliente.Count != 0;
     }
     private void AbrirVentanaAñadirCliente()
