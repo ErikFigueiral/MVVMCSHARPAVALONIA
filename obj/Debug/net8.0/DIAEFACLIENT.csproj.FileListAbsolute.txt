@@ -66,3 +66,4 @@ C:\Users\erikf\RiderProjects\DIAEFACLIENT\DIAEFACLIENT\obj\Debug\net8.0\refint\A
 C:\Users\erikf\RiderProjects\DIAEFACLIENT\DIAEFACLIENT\obj\Debug\net8.0\DIAEFACL.0B134BA5.Up2Date
 C:\Users\erikf\RiderProjects\DIAEFACLIENT\DIAEFACLIENT\obj\Debug\net8.0\DIAEFACLIENT.genruntimeconfig.cache
 C:\Users\erikf\RiderProjects\DIAEFACLIENT\DIAEFACLIENT\obj\Debug\net8.0\ref\DIAEFACLIENT.dll
+C:\Users\erikf\RiderProjects\DIAEFACLIENT\DIAEFACLIENT\obj\Debug\net8.0\DIAEFACLIENT.sourcelink.json

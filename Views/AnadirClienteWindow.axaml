@@ -13,32 +13,32 @@
         <!-- Sección de los datos del cliente -->
         <StackPanel Background="#F0F0F0">
             
-            <!-- Para DNI -->
+            <!-- Para DNI TEXT VINCULA CON EL OBSERVER-->
             <DockPanel Margin="10">
                 <Label Content="DNI:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularDNITextBox" Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox x:Name="TitularDNITextBox" Text="{Binding TitularDNI, Mode=TwoWay}"  Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
             </DockPanel>
             
             <!-- Para Nombre -->
             <DockPanel Margin="10">
                 <Label Content="Nombre:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularNombreTextBox" Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox x:Name="TitularNombreTextBox" Text="{Binding TitularNombre, Mode=TwoWay}"  Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
             </DockPanel>
 
             <!-- Para Dirección -->
             <DockPanel Margin="10">
                 <Label Content="Dirección:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularDireccionTextBox" Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox x:Name="TitularDireccionTextBox" Text="{Binding TitularDireccion, Mode=TwoWay}" Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
             </DockPanel>
 
             <!-- Para Código -->
             <DockPanel Margin="10">
                 <Label Content="Código:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularCodigoTextBox" Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox x:Name="TitularCodigoTextBox" Text="{Binding TitularCodigo, Mode=TwoWay}" Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
             </DockPanel>
 
             <!-- Botón Guardar -->
-            <Button Content="Guardar Cliente" Margin="10" HorizontalAlignment="Center" Height="40" Background="#4CAF50" Foreground="White" BorderBrush="Black" BorderThickness="0" CornerRadius="5"/>
+            <Button Content="Guardar Cliente" Command="{Binding AltaClienteCommand}" Margin="10" HorizontalAlignment="Center" Height="40" Background="#4CAF50" Foreground="White" BorderBrush="Black" BorderThickness="0" CornerRadius="5"/>
         </StackPanel>
     </StackPanel>
 </Window>
