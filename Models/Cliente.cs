@@ -1,4 +1,6 @@
-﻿namespace DIAEFACLIENT.Models;
+﻿using System;
+
+namespace DIAEFACLIENT.Models;
 
 
 using System.Linq;
@@ -12,9 +14,14 @@ public class Cliente
         get { return _dni; }
         init
         {
-            if (value.Length == '9' && value.Take(value.Length - 1).All(char.IsDigit) && char.IsLetter(value[8]))
+            value = value.Trim();
+            if (value.Length ==9 && value.Take(value.Length - 1).All(char.IsDigit) && char.IsLetter(value[8]))
             {
                 _dni = value;
+            }
+            else
+            {
+                throw new ArgumentException();
             }
         }
     }
