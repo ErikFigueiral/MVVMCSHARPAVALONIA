@@ -1,6 +1,8 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using DIAEFACLIENT.Models;
+using DIAEFACLIENT.Utils;
 using DIAEFACLIENT.ViewModels;
 
 namespace DIAEFACLIENT.Views;
@@ -27,5 +29,14 @@ public partial class VisualizarClienteWindow : Window
             })
         };
         MyDataGrid.Columns.Add(actionsColumn);
+        var messenger = Messenger.GetInstance;
+        messenger.Register<CloseWindowMessage>(message => Close());
+    }
+    protected override void OnClosed(EventArgs e)
+    {
+        var messenger = Messenger.GetInstance;
+        Console.WriteLine("CerrandoView Visualizar");
+        messenger.Unregister<CloseWindowMessage>(message => Close());  // Desregistrarse
+        base.OnClosed(e);
     }
 }

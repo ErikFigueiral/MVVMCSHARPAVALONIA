@@ -40,6 +40,11 @@ public class VisualizarClienteViewModel :  ViewModelBase
             OnPropertyChanged(nameof(Clientes));
         }
 
+        if (GestorClienteSingleton.GetInstancia().ListaCliente.Count == 0)
+        {
+            CerrarVentana();
+        }
+
     }
 
     private void CerrarVentana()
