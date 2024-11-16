@@ -7,51 +7,66 @@ namespace DIAEFACLIENT.ViewModels;
 
 public class AnadirClienteViewModel : ViewModelBase
 {
-    private string _titularDNI="";
-
+    // Propiedades vinculadas a la vista
+    private string _titularDNI = "";
     public string TitularDNI
     {
         get => _titularDNI;
-        set
-        {
-            SetProperty(ref _titularDNI, value);
-            AltaClienteCommand.NotifyCanExecuteChanged();
-        }
+        set => SetProperty(ref _titularDNI, value); // No validamos en el setter
     }
 
-
-    
-    private string _titularNombre="";
+    private string _titularNombre = "";
     public string TitularNombre
     {
         get => _titularNombre;
-        set{
-            SetProperty(ref _titularNombre, value);
-            AltaClienteCommand.NotifyCanExecuteChanged();
-        }
+        set => SetProperty(ref _titularNombre, value);
     }
-    
-    private string _titularDireccion="";
+
+    private string _titularDireccion = "";
     public string TitularDireccion
     {
         get => _titularDireccion;
-        set{
-            SetProperty(ref _titularDireccion, value);
-            AltaClienteCommand.NotifyCanExecuteChanged();
-        }
+        set => SetProperty(ref _titularDireccion, value);
     }
-    
-    private string _titularCodigo="";
+
+    private string _titularCodigo = "";
     public string TitularCodigo
     {
         get => _titularCodigo;
-        set{
-            SetProperty(ref _titularCodigo, value);
-            AltaClienteCommand.NotifyCanExecuteChanged();
-        }
+        set => SetProperty(ref _titularCodigo, value);
+    }
+
+    // Propiedades para almacenar los errores
+    private string _dniError;
+    public string DniError
+    {
+        get => _dniError;
+        set => SetProperty(ref _dniError, value);
+    }
+
+    private string _nombreError;
+    public string NombreError
+    {
+        get => _nombreError;
+        set => SetProperty(ref _nombreError, value);
+    }
+
+    private string _direccionError;
+    public string DireccionError
+    {
+        get => _direccionError;
+        set => SetProperty(ref _direccionError, value);
+    }
+
+    private string _codigoError;
+    public string CodigoError
+    {
+        get => _codigoError;
+        set => SetProperty(ref _codigoError, value);
     }
     // Comando para guardar el cliente
     public IRelayCommand AltaClienteCommand { get; }
+   
     
     public AnadirClienteViewModel()
     {
@@ -60,6 +75,7 @@ public class AnadirClienteViewModel : ViewModelBase
 
     private void AltaCliente()
     {
+        //Al usar setters alomejor puedo comprobar hay errores probably
         GestorClienteSingleton.GetInstancia().AnadirCliente(new Cliente
         {
             Codigo = TitularCodigo,
@@ -73,9 +89,39 @@ public class AnadirClienteViewModel : ViewModelBase
     
     private bool ComprobarAltaCliente()
     {
-        return !string.IsNullOrWhiteSpace(TitularDNI) &&
-               !string.IsNullOrWhiteSpace(TitularDireccion) &&
-               !string.IsNullOrWhiteSpace(TitularNombre) &&
-               !string.IsNullOrWhiteSpace(TitularCodigo);
+        return string.IsNullOrWhiteSpace(Cliente.ValidarDni(TitularDNI)) &&
+               string.IsNullOrWhiteSpace(Cliente.ValidarNombre(TitularNombre)) &&
+               string.IsNullOrWhiteSpace(Cliente.ValidarDireccion(TitularDireccion)) &&
+               string.IsNullOrWhiteSpace(Cliente.ValidarCodigo(TitularCodigo));
+    }
+
+    private void ActualizarEstadoBoton()
+    {
+        ((RelayCommand)AltaClienteCommand).NotifyCanExecuteChanged();
+    }
+    
+    public void ValidarDniOnLostFocus()
+    {
+        
+        DniError = Cliente.ValidarDni(TitularDNI);
+        ActualizarEstadoBoton();
+    }
+
+    public void ValidarNombreOnLostFocus()
+    {
+        NombreError = Cliente.ValidarNombre(TitularNombre);
+        ActualizarEstadoBoton();
+    }
+
+    public void ValidarDireccionOnLostFocus()
+    {
+        DireccionError = Cliente.ValidarDireccion(TitularDireccion);
+        ActualizarEstadoBoton();
+    }
+
+    public void ValidarCodigoOnLostFocus()
+    {
+        CodigoError = Cliente.ValidarCodigo(TitularCodigo);
+        ActualizarEstadoBoton();
     }
 }

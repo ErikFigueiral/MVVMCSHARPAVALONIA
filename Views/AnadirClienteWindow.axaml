@@ -4,7 +4,7 @@
         x:Class="DIAEFACLIENT.Views.AnadirClienteWindow"
         x:DataType="vm:AnadirClienteViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Añadir Cliente" Width="400" Height="350" >
+        Title="Añadir Cliente" Width="400" Height="500" >
 
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
         <!-- Título del formulario -->
@@ -13,29 +13,33 @@
         <!-- Sección de los datos del cliente -->
         <StackPanel Background="#F0F0F0">
             
-            <!-- Para DNI TEXT VINCULA CON EL OBSERVER-->
+            <!-- Para DNI -->
             <DockPanel Margin="10">
                 <Label Content="DNI:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularDNITextBox" Text="{Binding TitularDNI, Mode=TwoWay}"  Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox Name="TitularDNI" Text="{Binding TitularDNI, Mode=TwoWay}" Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
             </DockPanel>
+            <TextBlock Foreground="Red" Text="{Binding DniError}" Margin="5"/>
             
             <!-- Para Nombre -->
             <DockPanel Margin="10">
                 <Label Content="Nombre:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularNombreTextBox" Text="{Binding TitularNombre, Mode=TwoWay}"  Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox Name="TitularNombre" Text="{Binding TitularNombre, Mode=TwoWay}" Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
             </DockPanel>
+            <TextBlock Foreground="Red" Text="{Binding NombreError}" Margin="5"/>
 
             <!-- Para Dirección -->
             <DockPanel Margin="10">
                 <Label Content="Dirección:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularDireccionTextBox" Text="{Binding TitularDireccion, Mode=TwoWay}" Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox Name="TitularDireccion" Text="{Binding TitularDireccion, Mode=TwoWay}" Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
             </DockPanel>
+            <TextBlock Foreground="Red" Text="{Binding DireccionError}" Margin="5"/>
 
             <!-- Para Código -->
             <DockPanel Margin="10">
                 <Label Content="Código:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                <TextBox x:Name="TitularCodigoTextBox" Text="{Binding TitularCodigo, Mode=TwoWay}" Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5"/>
+                <TextBox Name="TitularCodigo" Text="{Binding TitularCodigo, Mode=TwoWay}" Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
             </DockPanel>
+            <TextBlock Foreground="Red" Text="{Binding CodigoError}" Margin="5"/>
 
             <!-- Botón Guardar -->
             <Button Content="Guardar Cliente" Command="{Binding AltaClienteCommand}" Margin="10" HorizontalAlignment="Center" Height="40" Background="#4CAF50" Foreground="White" BorderBrush="Black" BorderThickness="0" CornerRadius="5"/>
