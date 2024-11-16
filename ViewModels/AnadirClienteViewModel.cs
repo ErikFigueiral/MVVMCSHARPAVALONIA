@@ -76,7 +76,6 @@ public class AnadirClienteViewModel : ViewModelBase
 
     private void AltaCliente()
     {
-        //Al usar setters alomejor puedo comprobar hay errores probably
         GestorClienteSingleton.GetInstancia().AnadirCliente(new Cliente
         {
             Codigo = TitularCodigo,
@@ -85,6 +84,11 @@ public class AnadirClienteViewModel : ViewModelBase
             Nombre = TitularNombre
 
         });
+        if (GestorClienteSingleton.GetInstancia().ListaCliente.Count == 1)
+        {
+            Console.WriteLine("Envio al main");
+            Messenger.GetInstance.Send(new AddClient());
+        }
         Messenger.GetInstance.Send(new CloseWindowMessage());
     }
     

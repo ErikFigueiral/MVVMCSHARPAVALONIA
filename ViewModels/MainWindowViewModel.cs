@@ -1,4 +1,6 @@
-﻿namespace DIAEFACLIENT.ViewModels;
+﻿using DIAEFACLIENT.Utils;
+
+namespace DIAEFACLIENT.ViewModels;
 using System;
 using Avalonia;
 using DIAEFACLIENT.Models;
@@ -24,6 +26,12 @@ public partial class MainWindowViewModel : ViewModelBase
     private void AñadirCliente()
     {
         Console.WriteLine("Añadiendo cliente!");
+        var messenger = Messenger.GetInstance;
+        if (!PoderVisualizarCliente())
+        {
+            messenger.Register<AddClient>(message =>
+                ((RelayCommand)VisualizarClienteCommand).NotifyCanExecuteChanged());
+        }
         AbrirVentanaAñadirCliente();
     }
 
@@ -34,6 +42,9 @@ public partial class MainWindowViewModel : ViewModelBase
     //De esta manera  si hay clientes habilitamos el Command o no
     private bool PoderVisualizarCliente()
     {
+        Console.WriteLine("Compruebo de nuevo");
+        var messenger = Messenger.GetInstance;
+        messenger.Unregister<AddClient>(message => ((RelayCommand)VisualizarClienteCommand).NotifyCanExecuteChanged());
         return GestorClienteSingleton.GetInstancia().ListaCliente.Count != 0;
     }
     private void AbrirVentanaAñadirCliente()

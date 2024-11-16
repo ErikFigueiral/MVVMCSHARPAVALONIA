@@ -20,7 +20,7 @@ public partial class AnadirClienteWindow : Window
     protected override void OnClosed(EventArgs e)
     {
         var messenger = Messenger.GetInstance;
-        Console.WriteLine("Me cierro");
+        Console.WriteLine("CerrandoView");
         messenger.Unregister<CloseWindowMessage>(message => Close());  // Desregistrarse
         base.OnClosed(e);
     }

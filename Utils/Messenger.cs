@@ -54,3 +54,4 @@ public class Messenger
 }
 
 public class CloseWindowMessage { }
+public class AddClient{}
