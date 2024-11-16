@@ -11,11 +11,48 @@
         <Window.Styles>
                 <!-- Incluir el estilo de DataGrid -->
                 <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+                <Style Selector="DataGrid">
+                        <Setter Property="Background" Value="#F0F0F0"/>
+                        <Setter Property="BorderBrush" Value="#D3D3D3"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Padding" Value="5"/>
+                </Style>
+
+                <!-- Estilo para las celdas de las columnas -->
+                <Style Selector="DataGridCell">
+                        <Setter Property="Background" Value="#FFFFFF"/>
+                        <Setter Property="BorderBrush" Value="#D3D3D3"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Padding" Value="5"/>
+                </Style>
+
+                <!-- Estilo específico para la columna DNI -->
+                <Style Selector="DataGridCell:DniColumn">
+                        <Setter Property="Background" Value="#FFDEDEDE"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Foreground" Value="#000000"/>
+                </Style>
+
+                <!-- Estilo de las cabeceras -->
+                <Style Selector="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#3F8EDE"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Height" Value="35"/>
+                </Style>
+
+                <!-- Estilo para los botones dentro de DataGridTemplateColumn -->
+                <Style Selector="Button">
+                        <Setter Property="Background" Value="#4CAF50"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Padding" Value="5, 2"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                </Style>
         </Window.Styles>
 
         <StackPanel>
                 <TextBlock Text="Clientes" FontSize="24" HorizontalAlignment="Center" Margin="20"/>
-        
+                <!-- Nunca me debería mostrar el FallBack al tener el command que invoca esto con un método de restricción -->
                 <DataGrid ItemsSource="{Binding Clientes, FallbackValue='No hay clientes disponibles'}" AutoGenerateColumns="False" Margin="10">
                         <DataGrid.Columns>
                                 <DataGridTextColumn Header="DNI" Binding="{Binding Dni}" />
