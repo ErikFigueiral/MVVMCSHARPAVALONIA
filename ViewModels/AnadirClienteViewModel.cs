@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.Input;
 using DIAEFACLIENT.Models;
 using DIAEFACLIENT.Utils;
@@ -10,91 +13,40 @@ namespace DIAEFACLIENT.ViewModels;
 public class AnadirClienteViewModel : ViewModelBase
 {
     // Propiedades vinculadas a la vista
-    private string _titularDNI = "";
-    public string TitularDNI
-    {
-        get => _titularDNI;
-        //Observador-Observable (BIDIRECCIONAL)!!
-        set => SetProperty(ref _titularDNI, value); // No validamos en el setter
-    }
+    private readonly ClienteFactory _clienteFactory;
 
-    private string _titularNombre = "";
-    public string TitularNombre
-    {
-        get => _titularNombre;
-        set => SetProperty(ref _titularNombre, value);
-    }
-
-    private string _titularDireccion = "";
-    public string TitularDireccion
-    {
-        get => _titularDireccion;
-        set => SetProperty(ref _titularDireccion, value);
-    }
-
-    private string _titularCodigo = "";
-    public string TitularCodigo
-    {
-        get => _titularCodigo;
-        set => SetProperty(ref _titularCodigo, value);
-    }
-
-    // Propiedades para almacenar los errores
-    private string _dniError;
-    public string DniError
-    {
-        get => _dniError;
-        set => SetProperty(ref _dniError, value);
-    }
-
-    private string _nombreError;
-    public string NombreError
-    {
-        get => _nombreError;
-        set => SetProperty(ref _nombreError, value);
-    }
-
-    private string _direccionError;
-    public string DireccionError
-    {
-        get => _direccionError;
-        set => SetProperty(ref _direccionError, value);
-    }
-
-    private string _codigoError;
-    public string CodigoError
-    {
-        get => _codigoError;
-        set => SetProperty(ref _codigoError, value);
-    }
+    public Dictionary<string, string> AtributosCliente { get; }
+    public ObservableCollection<string> ListaErroresCliente { get; }
+    
+    public IRelayCommand<string> ValidarCampoCommand { get; }
     // Comando para guardar el cliente
     public IRelayCommand AltaClienteCommand { get; }
     
     public AnadirClienteViewModel()
     {
-        AltaClienteCommand=new RelayCommand(AltaCliente,ComprobarAltaCliente);
-    }
+        _clienteFactory = new ClienteFactory();
 
+        // Inicializar los diccionarios desde la factoría
+        AtributosCliente = _clienteFactory.CrearDiccionarioBase();
+        ListaErroresCliente = _clienteFactory.CrearListaErroresBase();
+
+        // Comandos
+        AltaClienteCommand = new RelayCommand(AltaCliente, PuedeAltaCliente);
+        ValidarCampoCommand = new RelayCommand<string>(ValidarCampo);
+    }
     private void AltaCliente()
     {
-        GestorClienteSingleton.GetInstancia().AnadirCliente(new Cliente
-        {
-            Codigo = TitularCodigo,
-            Direccion = TitularDireccion,
-            Dni = TitularDNI,
-            Nombre = TitularNombre
-
-        });
+        var cliente = _clienteFactory.CrearCliente(AtributosCliente);
+        GestorClienteSingleton.GetInstancia().AnadirCliente(cliente);
         VistaSingleton.CerrarInstancia<AnadirClienteWindow>();
         //Messenger.GetInstance.Send(new CloseWindowMessage()); SingletonVista se cargo al messenger
     }
     
-    private bool ComprobarAltaCliente()
+    private bool PuedeAltaCliente()
     {
-        return string.IsNullOrWhiteSpace(Cliente.ValidarDni(TitularDNI)) &&
-               string.IsNullOrWhiteSpace(Cliente.ValidarNombre(TitularNombre)) &&
-               string.IsNullOrWhiteSpace(Cliente.ValidarDireccion(TitularDireccion)) &&
-               string.IsNullOrWhiteSpace(Cliente.ValidarCodigo(TitularCodigo));
+        // Verifica que no haya errores y que todos los campos estén completos
+        return ListaErroresCliente.All(string.IsNullOrWhiteSpace) &&
+               AtributosCliente.Values.All(value => !string.IsNullOrWhiteSpace(value));
     }
 
     private void ActualizarEstadoBoton()
@@ -102,28 +54,39 @@ public class AnadirClienteViewModel : ViewModelBase
         ((RelayCommand)AltaClienteCommand).NotifyCanExecuteChanged();
     }
     
-    public void ValidarDniOnLostFocus()
+    private void ValidarCampo(string nombreCampo)
     {
-        
-        DniError = Cliente.ValidarDni(TitularDNI);
+        if (!AtributosCliente.ContainsKey(nombreCampo)) return;
+
+        // Realizamos validación llamando a los métodos estáticos de Cliente
+        var valor = AtributosCliente[nombreCampo];
+        string? error = nombreCampo switch
+        {
+            "Dni" => Cliente.ValidarDni(valor),
+            "Nombre" => Cliente.ValidarNombre(valor),
+            "Direccion" => Cliente.ValidarDireccion(valor),
+            "Codigo" => Cliente.ValidarCodigo(valor),
+            _ => null
+        };
+    
+        // Determinamos el índice correspondiente del error en la lista
+        int errorIndex = nombreCampo switch
+        {
+            "Dni" => 0,
+            "Nombre" => 1,
+            "Direccion" => 2,
+            "Codigo" => 3,
+            _ => -1
+        };
+
+        // Solo actualizamos si el índice es válido
+        if (errorIndex >= 0)
+        {
+            ListaErroresCliente[errorIndex] = error;
+        }
+
+        // Actualizamos el estado del botón
         ActualizarEstadoBoton();
     }
 
-    public void ValidarNombreOnLostFocus()
-    {
-        NombreError = Cliente.ValidarNombre(TitularNombre);
-        ActualizarEstadoBoton();
-    }
-
-    public void ValidarDireccionOnLostFocus()
-    {
-        DireccionError = Cliente.ValidarDireccion(TitularDireccion);
-        ActualizarEstadoBoton();
-    }
-
-    public void ValidarCodigoOnLostFocus()
-    {
-        CodigoError = Cliente.ValidarCodigo(TitularCodigo);
-        ActualizarEstadoBoton();
-    }
 }

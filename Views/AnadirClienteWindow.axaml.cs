@@ -27,26 +27,23 @@ public partial class AnadirClienteWindow : Window
     }
     private void TextBox_LostFocus(object sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var viewModel = (AnadirClienteViewModel)DataContext;
-        // Es un cast sobreseguro, sino es vale NULL
-        var textBox = sender as TextBox;
-        if (textBox != null)
+        if (DataContext is AnadirClienteViewModel viewModel && sender is TextBox textBox)
         {
-            if (textBox.Name == "TitularDNI")
+            // Usamos el nombre del TextBox como el identificador del campo
+            string nombreCampo = textBox.Name switch
             {
-                viewModel.ValidarDniOnLostFocus();
-            }
-            else if (textBox.Name == "TitularNombre")
+                "TitularDNI" => "Dni",
+                "TitularNombre" => "Nombre",
+                "TitularDireccion" => "Direccion",
+                "TitularCodigo" => "Codigo",
+                _ => null
+            };
+            Console.WriteLine("focus vale"+nombreCampo);
+
+            if (nombreCampo != null)
             {
-                viewModel.ValidarNombreOnLostFocus();
-            }
-            else if (textBox.Name == "TitularDireccion")
-            {
-                viewModel.ValidarDireccionOnLostFocus();
-            }
-            else if (textBox.Name == "TitularCodigo")
-            {
-                viewModel.ValidarCodigoOnLostFocus();
+                // Invocamos el comando para validar el campo
+                viewModel.ValidarCampoCommand.Execute(nombreCampo);
             }
         }
     }

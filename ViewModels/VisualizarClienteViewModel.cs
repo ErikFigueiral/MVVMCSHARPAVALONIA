@@ -17,11 +17,6 @@ public class VisualizarClienteViewModel :  ViewModelBase
     {
         // Inicializamos la lista de clientes con la lista de clientes del GestorClienteSingleton
         Clientes = GestorClienteSingleton.GetInstancia()._listaCliente;
-        foreach (var c in Clientes)
-        {
-            Console.WriteLine(c);
-        }
-        Console.WriteLine("Somos CLIENTES:"+Clientes.Count);
         EliminarClienteCommand = new RelayCommand<Cliente>(EliminarCliente);
         CerrarVentanaCommand = new RelayCommand(CerrarVentana);
     }

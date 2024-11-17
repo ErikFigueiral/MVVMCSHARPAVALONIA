@@ -5,8 +5,7 @@
         x:DataType="vm:AnadirClienteViewModel"
         Icon="/Assets/logo.png"
         Title="Añadir Cliente" Width="400" Height="500" >
-
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
         <!-- Título del formulario -->
         <TextBlock Text="Añadir Cliente" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
         
@@ -17,39 +16,57 @@
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="DNI:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                    <TextBox Name="TitularDNI" Text="{Binding TitularDNI, Mode=TwoWay}" Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                    <TextBox Name="TitularDNI" Text="{Binding AtributosCliente[Dni],Mode=TwoWay}" 
+                             Watermark="DNI" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
                 </DockPanel>
-                <TextBlock Foreground="Red" Text="{Binding DniError}" Margin="5"/>
+                <TextBlock Text="{Binding ListaErroresCliente[0]}" 
+                           Foreground="Red" 
+                           FontSize="12" 
+                           Margin="5" />
             </StackPanel>
             
             <!-- Para Nombre -->
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Nombre:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                    <TextBox Name="TitularNombre" Text="{Binding TitularNombre, Mode=TwoWay}" Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                    <TextBox Name="TitularNombre" Text="{Binding AtributosCliente[Nombre],Mode=TwoWay}" 
+                             Watermark="Nombre" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
                 </DockPanel>
-                <TextBlock Foreground="Red" Text="{Binding NombreError}" Margin="5"/>
+                <TextBlock Text="{Binding ListaErroresCliente[1]}" 
+                           Foreground="Red" 
+                           FontSize="12" 
+                           Margin="5" />
             </StackPanel>
 
             <!-- Para Dirección -->
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Dirección:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                    <TextBox Name="TitularDireccion" Text="{Binding TitularDireccion, Mode=TwoWay}" Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                    <TextBox  Name="TitularDireccion" Text="{Binding AtributosCliente[Direccion],Mode=TwoWay}" 
+                              Watermark="Dirección" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
                 </DockPanel>
-                <TextBlock Foreground="Red" Text="{Binding DireccionError}" Margin="5"/>
+                <TextBlock Text="{Binding ListaErroresCliente[2]}" 
+                    Foreground="Red" 
+                    FontSize="12" 
+                    Margin="5" />
             </StackPanel>
 
             <!-- Para Código -->
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Código:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                    <TextBox Name="TitularCodigo" Text="{Binding TitularCodigo, Mode=TwoWay}" Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
+                    <TextBox Name="TitularCodigo" Text="{Binding AtributosCliente[Codigo],Mode=TwoWay}" 
+                             Watermark="Código" DockPanel.Dock="Right" Width="200" Height="30" BorderBrush="#B0B0B0" BorderThickness="1" Margin="5" LostFocus="TextBox_LostFocus"/>
                 </DockPanel>
-                <TextBlock Foreground="Red" Text="{Binding CodigoError}" Margin="5"/>
+                <TextBlock Text="{Binding ListaErroresCliente[3]}" 
+                           Foreground="Red" 
+                           FontSize="12" 
+                           Margin="5" />
             </StackPanel>
+            
 
-            <!-- Botón Guardar -->
+    
+    <!-- Botón Guardar -->
             <Button Content="Guardar Cliente" Command="{Binding AltaClienteCommand}" Margin="10" HorizontalAlignment="Center" Height="40" Background="#4CAF50" Foreground="White" BorderBrush="Black" BorderThickness="0" CornerRadius="5"/>
         </StackPanel>
     </StackPanel>
