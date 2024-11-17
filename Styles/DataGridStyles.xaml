@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+    
+    <Style Selector="DataGrid">
+        <Setter Property="Background" Value="#F0F0F0"/>
+        <Setter Property="BorderBrush" Value="#D3D3D3"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style Selector="DataGridCell">
+        <Setter Property="Background" Value="#FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#D3D3D3"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style Selector="DataGridCell:DniColumn">
+        <Setter Property="Background" Value="#FFDEDEDE"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#000000"/>
+    </Style>
+
+    <Style Selector="DataGridColumnHeader">
+        <Setter Property="Background" Value="#3F8EDE"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Height" Value="35"/>
+    </Style>
+
+    <Style Selector="Button">
+        <Setter Property="Background" Value="#4CAF50"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="5, 2"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+</ResourceDictionary>

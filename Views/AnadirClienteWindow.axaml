@@ -3,7 +3,7 @@
         xmlns:vm="using:DIAEFACLIENT.ViewModels"
         x:Class="DIAEFACLIENT.Views.AnadirClienteWindow"
         x:DataType="vm:AnadirClienteViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/logo.png"
         Title="Añadir Cliente" Width="400" Height="500" >
 
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">

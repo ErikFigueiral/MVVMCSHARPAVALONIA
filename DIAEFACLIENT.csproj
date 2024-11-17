@@ -37,7 +37,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Styles\" />
       <Folder Include="XML\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Styles\DataGridStyles.xaml" />
     </ItemGroup>
 </Project>
