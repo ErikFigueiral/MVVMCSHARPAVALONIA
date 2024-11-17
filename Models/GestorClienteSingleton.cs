@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using DIAEFACLIENT.Utils;
 
 namespace DIAEFACLIENT.Models;
@@ -10,25 +11,28 @@ using System.Collections.ObjectModel;
 
 public class GestorClienteSingleton
 {
-    private static Action<List<Cliente>> saveAction = lista =>
+    private Action<IPersistencia<Cliente>, List<Cliente>> saveAction = (persistencia, lista) =>
     {
-        ClienteXML.Save("Clientes.xml", lista);
+        persistencia.Save(lista);
     };
-    private static GestorClienteSingleton instancia = new GestorClienteSingleton(ClienteXML.Load("Clientes.xml"),saveAction);
+    
+    private  IPersistencia<Cliente> _persistencia=new ConvertidorXML<Cliente>("Clientes.xml",new ClienteAdapter());
+    
+    private static GestorClienteSingleton instancia = new GestorClienteSingleton();
     public ObservableCollection<Cliente> _listaCliente { get; private set; }
     //Proxy Pattern
     public ReadOnlyObservableCollection<Cliente> ListaCliente
     {
         get=>new ReadOnlyObservableCollection<Cliente>(_listaCliente);
     }
-    public event Action ListaClienteCambiada;
-    private GestorClienteSingleton(List<Cliente> initialList, Action<List<Cliente>> onSaveCallback)
+    
+    private GestorClienteSingleton()
     {
-        _listaCliente = new ObservableCollection<Cliente>(initialList);
+        _listaCliente = new ObservableCollection<Cliente>(_persistencia.Load());
         _listaCliente.CollectionChanged += (sender, args) =>
         {
             EventAggregator.Instance.Publish(new ListaClientesCambiadaMessage());
-            onSaveCallback?.Invoke(new List<Cliente>(_listaCliente));
+            saveAction?.Invoke(_persistencia,new List<Cliente>(_listaCliente));
         };
     }
 
