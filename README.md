@@ -1,5 +1,5 @@
 # Project Overview
-This project follows the **MVVM (Model-View-ViewModel)** architecture to separate concerns and maintain a scalable and clean structure. It includes a persistence mechanism, singleton view management, and an event-driven communication system.
+This project follows the **MVVM (Model-View-ViewModel)** architecture pattern to separate concerns and maintain a scalable and clean structure. It includes a persistence mechanism, singleton view management, and an event-driven communication system.
 
 ## Architecture
 
@@ -7,6 +7,7 @@ This project follows the **MVVM (Model-View-ViewModel)** architecture to separat
 The **Model** layer contains the application's data and business logic. It includes:
 - **Cliente class**: Represents the client data.
 - **GestorClienteSingleton**: Manages the client list using the Singleton pattern.
+- **ClientFactory class**:Limit the asociations to client from ViewModel.
 
 ### ViewModel
 The **ViewModel** acts as the bridge between the **Model** and the **View**. It follows the **Command** pattern and uses the **Observer** pattern to notify the view of any data changes. Commands (implemented using `RelayCommand`) are triggered by user actions in the view, allowing decoupled interaction with the model.
